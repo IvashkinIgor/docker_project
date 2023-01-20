@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  generator:
+    build: botGenerator/
+    command: npm run start
+    ports:
+      - 8001:8001
+
+  bots:
+    build: bots/
+    command: npm run start
+    ports:
+      - 8081:8081
+    environment:
+      - BOT_PORT=8001
+      - PROD=production
+
+  frontend:
+    build: frontend/
+    command: npm run start
+    environment:
+      - PORT=3005
+      - API_PORT=8081
+
+    ports:
+      - 3005:3005
